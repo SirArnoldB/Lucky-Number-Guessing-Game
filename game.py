@@ -24,9 +24,17 @@ def stop():
         stop()
 
 def play():
-    # get the range
-    lowerBound = int(input("Enter Lower bound: "))
-    upperBound = int(input("Enter Upper bound: "))
+    def getRange():
+        # get the range
+        lowerBound = int(input("\n\tEnter Lower bound: "))
+        upperBound = int(input("\n\tEnter Upper bound: "))
+
+        return lowerBound, upperBound
+
+    lowerBound, upperBound = getRange()
+    while upperBound < lowerBound or upperBound == lowerBound:
+        print("Upper Bound must be greater than lower Bound!\n")
+        lowerBound, upperBound = getRange()
 
     # get the lucky number 
     luckyNumber = genie(lowerBound, upperBound)
@@ -50,18 +58,20 @@ def play():
 
         # Condition testing
         if countGuesses >= numGuesses:
-            print("\nThe Lucky Number Number is %d" % luckyNumber)
-            print("\nBetter Luck Next time!")
+            print("\n\tGuesses remaining: {0} \n".format(numGuesses - countGuesses))
+            print("\n\tThe Lucky Number Number is %d \n" % luckyNumber)
+            print("\n\tBetter Luck Next time!\n")
             flag = False
         if guess == luckyNumber:
-            print("Congratulations you guessed the luck number in {0} guesse(s)!\n".format(countGuesses))
+            print("\nCongratulations you guessed the lucky number, {0}, in {1} guesse(s)!\n".format(luckyNumber, countGuesses))
             # break the loop - guess found
             break
         elif guess < luckyNumber:
-            print("You guessed too small!")
+            print("\tYou guessed too small!\n")
+            print("\n\tGuesses remaining: {0} \n".format(numGuesses - countGuesses))
         elif guess > luckyNumber:
-            print("You Guessed too high!")
-        print("\n Guesses remaining: {0} \n".format(numGuesses - countGuesses))
+            print("\tYou Guessed too high!\n")
+            print("\n\tGuesses remaining: {0} \n".format(numGuesses - countGuesses))
 
     stop()
 
