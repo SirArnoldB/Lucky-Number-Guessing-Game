@@ -67,10 +67,10 @@ def play():
             # break the loop - guess found
             break
         elif guess < luckyNumber:
-            print("\tYou guessed too small!\n")
+            print("\tTry Again. You guessed too small!\n")
             print("\n\tGuesses remaining: {0} \n".format(numGuesses - countGuesses))
         elif guess > luckyNumber:
-            print("\tYou Guessed too high!\n")
+            print("\tTry Again. You Guessed too high!\n")
             print("\n\tGuesses remaining: {0} \n".format(numGuesses - countGuesses))
 
     stop()
