@@ -1,4 +1,4 @@
-from random import randint
+from random import choice, randint
 import math
 
 def genie(lowerBound, upperBound):
@@ -11,41 +11,60 @@ def genie(lowerBound, upperBound):
     luckyNumber = randint(lowerBound, upperBound)
     return luckyNumber
 
-# get the range
-lowerBound = int(input("Enter Lower bound: "))
-upperBound = int(input("Enter Upper bound: "))
+def stop():
+    choice = str(input("Do you want to play again? (Y/N): "))
+    if choice.lower() == "y":
+        # start the game
+        play()
+    elif choice.lower() == 'n':
+        # end the game
+        exit()
+    else:
+        print("Please Enter 'Y' to play a new game or 'N' to stop!")
+        stop()
 
-# get the lucky number 
-luckyNumber = genie(lowerBound, upperBound)
+def play():
+    # get the range
+    lowerBound = int(input("Enter Lower bound: "))
+    upperBound = int(input("Enter Upper bound: "))
 
-# get the number of guesses
-numGuesses = round(math.log(upperBound - lowerBound + 1, 2))
+    # get the lucky number 
+    luckyNumber = genie(lowerBound, upperBound)
 
-print("\n\tYou only have {0} chances to guess the integer!\n".format(numGuesses))
+    # get the number of guesses
+    numGuesses = round(math.log(upperBound - lowerBound + 1, 2))
 
-# Initializing the number of guesses.
-countGuesses = 0
+    print("\n\tYou only have {0} chances to guess the integer!\n".format(numGuesses))
 
-# game loop
-while countGuesses < numGuesses:
-    countGuesses += 1
+    # Initializing the number of guesses.
+    countGuesses = 0
 
-    # taking guessing number as input
-    guess = int(input("Guess a number: "))
+    flag = True
 
-    # Condition testing
-    if guess == luckyNumber:
-        print("Congratulations you guessed the luck number in {0} guesses!".format(countGuesses))
-        # break the loop - guess found
-        break
-    elif guess < luckyNumber:
-        print("You guessed too small!")
-    elif guess > luckyNumber:
-        print("You Guessed too high!")
-    print("\n Guesses remaining: {0} \n".format(numGuesses - countGuesses))
+    # game loop
+    while flag:
+        countGuesses += 1
 
-# If number of guesses is more than required guesses:
-if countGuesses >= numGuesses:
-    print("\nThe Lucky Number Number is %d" % luckyNumber)
-    print("\nBetter Luck Next time!")
+        # taking guessing number as input
+        guess = int(input("Guess a number: "))
+
+        # Condition testing
+        if countGuesses >= numGuesses:
+            print("\nThe Lucky Number Number is %d" % luckyNumber)
+            print("\nBetter Luck Next time!")
+            flag = False
+        if guess == luckyNumber:
+            print("Congratulations you guessed the luck number in {0} guesse(s)!\n".format(countGuesses))
+            # break the loop - guess found
+            break
+        elif guess < luckyNumber:
+            print("You guessed too small!")
+        elif guess > luckyNumber:
+            print("You Guessed too high!")
+        print("\n Guesses remaining: {0} \n".format(numGuesses - countGuesses))
+
+    stop()
+
+if __name__ == "__main__":
+    play()
 
